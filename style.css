@@ -1,0 +1,362 @@
+/* Estilos extras para melhorar a experiência */
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+textarea {
+  min-height: 56px;
+  max-height: 200px;
+  background: transparent;
+  color: var(--text);
+}
+
+textarea:focus {
+  height: auto;
+}
+
+.message-user {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.message-ai {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 85%;
+  padding: 16px;
+  border-radius: 16px;
+  line-height: 1.5;
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Bolha do usuário (envio) */
+.bubble-user {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+  border-bottom-right-radius: 4px;
+}
+
+/* Bolha da IA (resposta) */
+.bubble-ai {
+  background-color: var(--bubble-ai-bg);
+  color: var(--bubble-ai-text);
+  border-bottom-left-radius: 4px;
+  border: 1px solid var(--bubble-ai-border);
+}
+
+/* Indicador de digitação */
+.typing {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--muted);
+  border-radius: 50%;
+  margin: 0 2px;
+  opacity: 0.4;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+/* Pre / bloco de código */
+pre {
+  background: var(--pre-bg);
+  color: var(--pre-text);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'Fira Code', monospace;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+}
+
+/* Botão de copiar */
+.copy-btn {
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.15s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.copy-btn:hover {
+  background: rgba(59,130,246,0.06); /* leve destaque azul */
+  color: var(--primary);
+}
+
+.message-ai:hover .copy-btn {
+  opacity: 1;
+}
+
+/* Mobile sidebar toggle */
+#mobileMenuBtn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #mobileMenuBtn {
+    display: block;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 50;
+    background: var(--mobile-btn-bg);
+    border: 1px solid var(--mobile-btn-border);
+    border-radius: 8px;
+    padding: 8px;
+  }
+
+  .dark #mobileMenuBtn {
+    /* já coberto pelas variáveis, mas mantemos como fallback */
+    background: var(--mobile-btn-bg);
+    border-color: var(--mobile-btn-border);
+  }
+}
+
+/* Animações */
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Theme variables: light por padrão, dark sobrescreve via .dark no <html> */
+:root {
+  --bg: #f3f4f6;                /* gray-100 */
+  --text: #111827;              /* gray-900 */
+  --muted: #6b7280;             /* gray-500 */
+  --primary: #2563eb;           /* blue-600 */
+  --primary-contrast: #ffffff;
+  --bubble-ai-bg: #ffffff;
+  --bubble-ai-text: #111827;
+  --bubble-ai-border: #e5e7eb;
+  --pre-bg: #f8fafc;
+  --pre-text: #0f172a;
+  --mobile-btn-bg: #ffffff;
+  --mobile-btn-border: #e5e7eb;
+}
+
+.dark {
+  --bg: #0b1220;                /* escuro profundo */
+  --text: #e5e7eb;              /* cinza claro */
+  --muted: #9ca3af;
+  --primary: #60a5fa;           /* blue-400 para melhor contraste no dark */
+  --primary-contrast: #0b1220;
+  --bubble-ai-bg: #0f1722;
+  --bubble-ai-text: #e5e7eb;
+  --bubble-ai-border: #374151;
+  --pre-bg: #0f172a;
+  --pre-text: #e2e8f0;
+  --mobile-btn-bg: #1f2937;
+  --mobile-btn-border: #374151;
+}
+
+/* Variáveis extras para elementos do layout */
+:root {
+  --card-bg: #ffffff;
+  --sidebar-bg: #ffffff;
+  --border: #e5e7eb;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --send-btn-bg: #2563eb;
+  --send-btn-text: #ffffff;
+}
+
+.dark {
+  --card-bg: #0f1722;
+  --sidebar-bg: #0f1722;
+  --border: #374151;
+  --input-bg: #0f1727;
+  --input-border: #374151;
+  --send-btn-bg: #60a5fa;
+  --send-btn-text: #0b1220;
+}
+
+/* Variáveis específicas para o "miolo" (área das mensagens) */
+:root {
+  --miolo-bg: #ffffff;        /* fundo do painel central - claro */
+  --miolo-border: #e6e9ef;
+  --miolo-shadow: 0 6px 18px rgba(15,23,42,0.04);
+}
+
+.dark {
+  --miolo-bg: #071022;        /* fundo do painel central - escuro */
+  --miolo-border: #1f2a36;
+  --miolo-shadow: 0 6px 18px rgba(2,6,23,0.6);
+}
+
+/* Aplicar o miolo em toda a coluna central */
+#main {
+  background: var(--miolo-bg);
+  color: var(--text);
+  transition: background-color 0.25s, color 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fazer o chatContainer usar o mesmo fundo e não sobrescrever o miolo */
+#chatContainer {
+  background: transparent;
+  flex: 1 1 auto;
+  padding: 24px;
+}
+
+/* Garantir que a área que contém as mensagens (box interna) também use variáveis */
+#messages {
+  background: transparent;
+}
+
+/* Se quiser que a caixa interna fique com o estilo de painel (opcional, já existe #messages.max-w-3xl) */
+#messages.max-w-3xl {
+  /* mantém as regras já definidas, garantindo prioridade */
+  background: var(--miolo-bg) !important;
+  border: 1px solid var(--miolo-border);
+  box-shadow: var(--miolo-shadow);
+  padding: 20px;
+  border-radius: 12px;
+  transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+/* Ajustes internos do miolo para melhor leitura */
+#messages.max-w-3xl .message-ai,
+#messages.max-w-3xl .message-user {
+  margin: 10px 0;
+}
+
+/* Destaque suave nas bolhas para contraste no miolo */
+.bubble {
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+}
+
+.dark .bubble {
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* Garantir espaçamento inferior do chat container quando em tela pequena */
+#chatContainer {
+  padding-bottom: 24px;
+}
+
+/* Forçar componentes do layout a usar as variáveis de tema (sobrescreve Tailwind) */
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Sidebar / cards / painéis */
+#sidebar {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* Header/footer panes that use p-4 + borders */
+.p-4.border-b,
+.p-4.border-t,
+.p-4.border-l,
+.p-4.border-r {
+  background: var(--card-bg);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/* Áreas principais que receberam bg-white no HTML */
+.bg-white {
+  background-color: var(--card-bg) !important;
+  color: var(--text);
+}
+
+/* Container do chat */
+#chatContainer,
+#messages,
+.max-w-3xl {
+  color: var(--text);
+  background: transparent;
+}
+
+/* Textarea / inputs */
+textarea,
+input,
+select {
+  background: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+  color: var(--text) !important;
+}
+
+/* Botões principais (ex: enviar, novo chat, tema) */
+#sendBtn,
+#newChatBtn,
+#themeToggle {
+  background: var(--send-btn-bg);
+  color: var(--send-btn-text);
+  border-color: var(--border);
+}
+
+/* Ajustes para estados hover (preservar contraste) */
+#sendBtn:hover,
+#newChatBtn:hover,
+#themeToggle:hover {
+  filter: brightness(0.95);
+}
+
+/* Bordas gerais */
+.border-gray-200 {
+  border-color: var(--border) !important;
+}
+
+/* Texto mutado */
+.text-gray-500 {
+  color: var(--muted) !important;
+}
+
+/* Small adjustments for dark mode inputs */
+.dark textarea::placeholder,
+.dark input::placeholder {
+  color: #9ca3af;
+}
+/* === MELHORIAS VISUAIS E ANIMAÇÕES ADICIONADAS POR RIAN === */
+
+/* Transições suaves nos botões */
+#sendBtn, #newChatBtn {
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+#sendBtn:hover, #newChatBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+/* Animações de entrada das mensagens */
+.bubble-user {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.bubble-ai {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(15px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-15px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Efeito de brilho sutil no modo escuro */
+.dark .bubble-ai, .dark .bubble-user {
+  box-shadow: 0 0 10px rgba(96,165,250,0.08);
+}
